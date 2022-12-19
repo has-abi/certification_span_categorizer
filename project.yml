@@ -1,0 +1,25 @@
+title: "Span categorization for a resume certification section."
+description: "This project uses spaCy span categorizer to categorize certification section entities to 4 classes (CERTIFICATE, ORG, DATE, LOC)"
+
+vars:
+  name: "certification_span_categorizer"
+  version: "0.1.0"
+  lang: "fr"
+
+directories: ["assets", "corpus", "scripts"]
+
+workflows:
+  all:
+    - preprocess
+  
+commands:
+  - name: preprocess
+    help: "Convert data/corpus to spaCy format"
+    script:
+      - "python scripts/convert.py"
+    deps:
+      - "assets/train.json"
+      - "assets/val.json"
+    outputs_no_cache:
+      - "corpus/train.spacy"
+      - "corpus/val.spacy"
