@@ -40,7 +40,7 @@ def main(
     assets_dir: Path = ASSETS_DIR,
     corpus_dir: Path = CORPUS_DIR,
     lang: str = "fr",
-    spans_key: str = "cs",
+    spans_key: str = "sc",
 ) -> None:
     nlp = spacy.blank(lang)
     for json_file in assets_dir.iterdir():

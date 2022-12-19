@@ -5,13 +5,14 @@ vars:
   name: "certification_span_categorizer"
   version: "0.1.0"
   lang: "fr"
+  config: "default"
 
-directories: ["assets", "corpus", "scripts"]
+directories: ["assets", "corpus", "scripts", "config", "training"]
 
 workflows:
   all:
     - preprocess
-  
+    - train
 commands:
   - name: preprocess
     help: "Convert data/corpus to spaCy format"
@@ -23,3 +24,20 @@ commands:
     outputs_no_cache:
       - "corpus/train.spacy"
       - "corpus/val.spacy"
+
+  - name: train
+    help: "Train spaCy pipline"
+    script:
+      - "python -m spacy train ./config/${vars.config}.cfg -o ./training/${vars.config}"
+    deps:
+      - "corpus/train.spacy"
+      - "corpus/val.spacy"
+      - "./config/${vars.config}.cfg"
+    outputs:
+      - "training/${vars.config}/model-best"
+
+  - name: clean
+    help: "Remove intermediate files"
+    script:
+      - "rm -rf training/*"
+      - "rm -rf corpus/*"
