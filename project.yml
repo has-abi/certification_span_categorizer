@@ -7,12 +7,14 @@ vars:
   lang: "fr"
   config: "default"
 
-directories: ["assets", "corpus", "scripts", "config", "training"]
+directories: ["assets", "corpus", "scripts", "config", "training", "metrics"]
 
 workflows:
   all:
     - preprocess
     - train
+    - evaluate
+    
 commands:
   - name: preprocess
     help: "Convert data/corpus to spaCy format"
@@ -35,6 +37,16 @@ commands:
       - "./config/${vars.config}.cfg"
     outputs:
       - "training/${vars.config}/model-best"
+
+  - name: evaluate
+    help: "Evaluate the trained model and export metrics"
+    script:
+      - "python -m spacy evaluate training/${vars.config}/model-best corpus/val.spacy --output metrics/metrics-${vars.config}.json"
+    deps:
+      - "training/${vars.config}/model-best"
+      - "corpus/val.spacy"
+    outputs:
+      - "metrics/metrics-${vars.config}.json"
 
   - name: clean
     help: "Remove intermediate files"
