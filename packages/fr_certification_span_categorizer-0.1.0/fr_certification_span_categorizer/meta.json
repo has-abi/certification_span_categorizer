@@ -1,0 +1,50 @@
+{
+  "lang":"fr",
+  "name":"certification_span_categorizer",
+  "version":"0.1.0",
+  "description":"",
+  "author":"",
+  "email":"",
+  "url":"",
+  "license":"",
+  "spacy_version":">=3.4.4,<3.5.0",
+  "spacy_git_version":"77833bfef",
+  "vectors":{
+    "width":0,
+    "vectors":0,
+    "keys":0,
+    "name":null
+  },
+  "labels":{
+    "tok2vec":[
+
+    ],
+    "spancat":[
+      "DATE",
+      "CERTIFICATE",
+      "ORG",
+      "LOC"
+    ]
+  },
+  "pipeline":[
+    "tok2vec",
+    "spancat"
+  ],
+  "components":[
+    "tok2vec",
+    "spancat"
+  ],
+  "disabled":[
+
+  ],
+  "performance":{
+    "spans_sc_f":0.7908857038,
+    "spans_sc_p":0.9173060529,
+    "spans_sc_r":0.6950904393,
+    "tok2vec_loss":1.2496480196,
+    "spancat_loss":719.1933386326
+  },
+  "requirements":[
+
+  ]
+}

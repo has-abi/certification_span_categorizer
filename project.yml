@@ -7,14 +7,15 @@ vars:
   lang: "fr"
   config: "default"
 
-directories: ["assets", "corpus", "scripts", "config", "training", "metrics"]
+directories: ["assets", "corpus", "scripts", "config", "training", "metrics", "packages"]
 
 workflows:
   all:
     - preprocess
     - train
     - evaluate
-    
+    - package
+
 commands:
   - name: preprocess
     help: "Convert data/corpus to spaCy format"
@@ -53,3 +54,12 @@ commands:
     script:
       - "rm -rf training/*"
       - "rm -rf corpus/*"
+
+  - name: package
+    help: "Package the trained model as a pip package"
+    script:
+      - "python -m spacy package training/${vars.config}/model-best packages --name ${vars.name} --version ${vars.version} --force"
+    deps:
+      - "training/${vars.config}/model-best"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.name}-${vars.version}/dist/${vars.lang}_${vars.name}-${vars.version}.tar.gz"
