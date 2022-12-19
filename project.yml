@@ -49,12 +49,6 @@ commands:
     outputs:
       - "metrics/metrics-${vars.config}.json"
 
-  - name: clean
-    help: "Remove intermediate files"
-    script:
-      - "rm -rf training/*"
-      - "rm -rf corpus/*"
-
   - name: package
     help: "Package the trained model as a pip package"
     script:
@@ -63,3 +57,9 @@ commands:
       - "training/${vars.config}/model-best"
     outputs_no_cache:
       - "packages/${vars.lang}_${vars.name}-${vars.version}/dist/${vars.lang}_${vars.name}-${vars.version}.tar.gz"
+
+  - name: clean
+    help: "Remove intermediate files"
+    script:
+      - "rm -rf training/*"
+      - "rm -rf corpus/*"
