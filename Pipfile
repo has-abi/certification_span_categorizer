@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 spacy = "*"
+spacy-transformers = "*"
 
 [dev-packages]
 pylint = "*"

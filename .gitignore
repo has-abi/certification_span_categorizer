@@ -170,3 +170,4 @@ poetry.toml
 project.lock
 
 .vscode/
+training/transformer
